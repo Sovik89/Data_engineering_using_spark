@@ -1,0 +1,38 @@
+Ivy Default Cache set to: /home/sovik/.ivy2/cache
+The jars for the packages stored in: /home/sovik/.ivy2/jars
+io.delta#delta-spark_2.12 added as a dependency
+:: resolving dependencies :: org.apache.spark#spark-submit-parent-fdfbe3de-5010-4f48-9e7b-234219a7e38f;1.0
+	confs: [default]
+	found io.delta#delta-spark_2.12;3.0.0 in central
+	found io.delta#delta-storage;3.0.0 in central
+	found org.antlr#antlr4-runtime;4.9.3 in central
+:: resolution report :: resolve 205ms :: artifacts dl 20ms
+	:: modules in use:
+	io.delta#delta-spark_2.12;3.0.0 from central in [default]
+	io.delta#delta-storage;3.0.0 from central in [default]
+	org.antlr#antlr4-runtime;4.9.3 from central in [default]
+	---------------------------------------------------------------------
+	|                  |            modules            ||   artifacts   |
+	|       conf       | number| search|dwnlded|evicted|| number|dwnlded|
+	---------------------------------------------------------------------
+	|      default     |   3   |   0   |   0   |   0   ||   3   |   0   |
+	---------------------------------------------------------------------
+:: retrieving :: org.apache.spark#spark-submit-parent-fdfbe3de-5010-4f48-9e7b-234219a7e38f
+	confs: [default]
+	0 artifacts copied, 3 already retrieved (0kB/10ms)
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+ivysettings.xml file not found in HIVE_HOME or HIVE_CONF_DIR,/etc/hive/conf.dist/ivysettings.xml will be used
+24/05/10 18:35:18 INFO SparkEnv: Registering MapOutputTracker
+24/05/10 18:35:18 INFO SparkEnv: Registering BlockManagerMaster
+24/05/10 18:35:18 INFO SparkEnv: Registering BlockManagerMasterHeartbeat
+24/05/10 18:35:18 INFO SparkEnv: Registering OutputCommitCoordinator
+24/05/10 18:35:20 WARN Client: Same path resource file:///home/sovik/.ivy2/jars/io.delta_delta-spark_2.12-3.0.0.jar added multiple times to distributed cache.
+24/05/10 18:35:20 WARN Client: Same path resource file:///home/sovik/.ivy2/jars/io.delta_delta-storage-3.0.0.jar added multiple times to distributed cache.
+24/05/10 18:35:20 WARN Client: Same path resource file:///home/sovik/.ivy2/jars/org.antlr_antlr4-runtime-4.9.3.jar added multiple times to distributed cache.
+Spark Web UI available at http://cluster-2fef-sovik-m.us-central1-f.c.my-analytics-project-422413.internal:46371
+Spark master: yarn, Application Id: application_1715357088440_0027
+Time taken: 4.005 seconds
+Time taken: 11.29 seconds, Fetched 12 row(s)
+24/05/10 18:35:44 WARN SparkStringUtils: Truncated the string representation of a plan since it was too large. This behavior can be adjusted by setting 'spark.sql.debug.maxToStringFields'.
+Time taken: 16.765 seconds, Fetched 1 row(s)

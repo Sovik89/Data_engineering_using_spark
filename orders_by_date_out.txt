@@ -1,0 +1,14 @@
+:: loading settings :: url = jar:file:/usr/lib/spark/jars/ivy-2.5.1.jar!/org/apache/ivy/core/settings/ivysettings.xml
+order_id            	int                 	                    
+order_date          	string              	                    
+order_customer_id   	int                 	                    
+order_status        	string              	                    
+                    	                    	                    
+# Detailed Table Information	                    	                    
+Name                	spark_catalog.retail_db.orders	                    
+Type                	MANAGED             	                    
+Location            	hdfs://cluster-2fef-sovik-m/user/hive/warehouse/retail_db.db/orders	                    
+Provider            	delta               	                    
+Owner               	sovik               	                    
+Table Properties    	[delta.minReaderVersion=1,delta.minWriterVersion=2]	                    
+143

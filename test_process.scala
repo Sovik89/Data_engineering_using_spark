@@ -1,0 +1,1 @@
+val department_df=spark.read.schema("department_id INT,department_name STRING").csv("/user/sovik/retail_db/departments")
