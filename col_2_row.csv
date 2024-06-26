@@ -1,0 +1,5 @@
+svoc_id,token_number,dealer_code,lob,transaction_no,transaction_type_booking,transaction_type_invoice,transaction_type_delivery,transaction_type_job_card
+2072e38e-192f-49a6-ac7b-64fec86b5ac3,23d89455-30eb-4d3c-b492-5f1545679d02,LQSDEALER1,1,OB202300005,booking,invoice,deliverynote,job_card
+61fd04b4-f6bf-474a-8ddc-620fd73f2577,d0e52e2d-867b-43bc-ae59-5dc370144ed7,LQSDEALER1,1,OB202300005,booking,invoice,deliverynote,job_card
+933d804a-b966-427f-8105-119c19ab5dc9,d0e52e2d-867b-43bc-ae59-5dc370144ed7,LQSDEALER1,1,OB202300005,booking,invoice,deliverynote,job_card
+c40f4990-3a7b-45bf-b939-e9f96c755cc4,23d89455-30eb-4d3c-b492-5f1545679d02,LQSDEALER1,1,OB202300005,booking,invoice,deliverynote,job_card
