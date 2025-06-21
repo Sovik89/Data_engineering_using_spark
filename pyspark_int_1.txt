@@ -1,0 +1,231 @@
+from pyspark.sql import SparkSession
+
+from pyspark.sql.functions import *
+
+from pyspak.sql import Window
+
+
+
+spark=SparkSession.builder.enableHiveSupport().appName("Interview").getOrCreate()
+
+df=spark.createDataFrame(data,schema=columns)# thinking it to be common for all subsequent problems
+
+
+
+✅ 1. Calculate Bonus and Total Salary
+
+
+
+Input: A DataFrame with columns: `emp_id`, `name`, `salary`
+
+Task: Add a new column `bonus` (10% of salary) and calculate `total_salary = salary + bonus`.
+
+
+
+Ans: df=df.withColumn("bonus",col("salary")*.1).withColumn('total_salary',col("salary")+col("bonus"))
+
+df.show(truncate=False)
+
+
+
+✅ 2. Find Top N Salaries per Department
+
+
+
+Input: A DataFrame with `emp_id`, `dept`, `salary`
+
+Task: Get top 2 salaries per department using Window functions.
+
+
+
+Ans: windowSpec=Window.partitionBy(col("dept")).orderBy(col("salary").desc())
+
+
+
+
+
+df=df.withColumn("salary_rnk",dense_rank().over(windowSpec))
+
+df_sal=df.select(col("dept"),col("salary")).filter(col("salary_rnk")<=2).drop("salary_rnk")
+
+df_sal.show(truncate=False)
+
+
+
+
+
+ ✅ 3. Remove Duplicate Records
+
+
+
+Input: A DataFrame with `id`, `name`, `age`, `city`
+
+Task: Remove exact duplicate rows and retain only unique rows.
+
+df=df.dropDuplicates(columns) # assuming columns are an array like columns=["id", "name", "age", "city"]
+
+df.show(truncate=False)
+
+
+
+
+
+✅ 4. Get Latest Transaction for Each User
+
+
+
+Input: DataFrame with `user_id`, `amount`, `txn_date`
+
+Task: For each user, get their most recent transaction.
+
+
+
+windowSpec=Window.partitionBy(col("user_id")).orderBy(col('txn_date').desc())
+
+
+
+df=df.withColumn("latest_txn",dense_rank().over(windowSpec)).filter(col("latest_txn")==1).drop("latest_txn")
+
+df.show(truncate=False)
+
+
+
+✅ 5. Explode Array Column
+
+
+
+Input: A DataFrame with columns `user_id`, `hobbies` (ArrayType)
+
+Task: Explode the array to get one row per hobby.
+
+
+
+df = df.withColumn("hobby", explode(col("hobbies")))
+
+df = df.drop("hobbies") # optional, if you don't need the original array
+
+df.show(truncate=False)
+
+
+
+
+
+✅ 6. Join Two DataFrames
+
+
+
+Input:
+
+
+
+* DF1: `emp_id`, `emp_name`
+
+* DF2: `emp_id`, `dept_name`
+
+Task: Perform an inner join and return the full employee-department info.
+
+
+
+df_joined=df1.alias("a").join(df2.alias("b"),df1["emp_id"]==df2["emp_id"],how="inner")
+
+
+
+✅ 7. GroupBy and Aggregate Multiple Columns
+
+
+
+Input: A DataFrame with `region`, `product`, `sales`
+
+Task: Get total sales per region and product.
+
+
+
+df=df.groupBy(col("region"),col("product")).agg(sum(col("sales")).alias("total_salary"))
+
+df.show(truncate=False)
+
+
+
+✅ 8. Find Users Who Placed Orders More Than 3 Times
+
+
+
+Input: DataFrame with `user_id`, `order_id`
+
+Task: Filter users who placed more than 3 orders.
+
+
+
+df=df.groupBy(col("user_id")).agg(count(col("order_id")).alias("order_count")).filter(col("order_count")>3)
+
+df.show(truncate=False)
+
+
+
+✅ 9. Null Handling and Fill
+
+
+
+Input: A DataFrame with missing values in columns `age`, `salary`
+
+Task: Fill nulls in `age` with 0 and `salary` with the average salary.
+
+
+
+Ans:
+
+avg_1=df.agg(avg(col("salary")).alias("avg_sal")).collect()
+
+avg_1_updated=avg_1[0]["avg_sal"]
+
+
+
+df = df.withColumn(
+
+  "age",
+
+  when(col("salary").isNull(), avg_1_updated).otherwise(col("salary"))
+
+df=df.withColumn(
+
+  "age",
+
+  when(col("age").isNull(), 0).otherwise(col("age"))
+
+df.show(truncate=False)
+
+
+
+#another way
+
+
+
+df = df.fillna({"age": 0, "salary": avg_1_updated})
+
+df.show(truncate=False)
+
+
+
+✅ 10. Calculate Running Total Using Window Function
+
+
+
+Input: DataFrame with `user_id`, `txn_date`, `amount`
+
+Task: For each user, calculate the running total of amount over `txn_date`.
+
+
+
+
+
+windowSpec = Window.partitionBy("user_id").orderBy("txn_date") \
+
+          .rowsBetween(Window.unboundedPreceding, Window.currentRow)
+
+
+
+df = df.withColumn("running_total", sum("amount").over(windowSpec))
+
+
+
+df.show(truncate=False)
